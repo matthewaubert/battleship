@@ -18,7 +18,6 @@ For an explanation of the rules of the game: https://en.wikipedia.org/wiki/Battl
    - A `Ship` instance will have the following properties:
      - length
      - number of times it's been hit
-     - whether or not it's been sunk
    - Ships will have a `hit()` method that increases the number of 'hits' in that instance
    - Ships will have an `isSunk()` method that calculates whether it is considered sunk based on its length and the number of hits it has received
    - _Consider_: I only need to test an object's public interface. Only methods or properties that are used outside of a `Ship` instance need unit tests. (This follows the rule: do not test private methods.)
