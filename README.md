@@ -23,14 +23,19 @@ For an explanation of the rules of the game: https://en.wikipedia.org/wiki/Battl
    - _Consider_: I only need to test an object's public interface. Only methods or properties that are used outside of a `Ship` instance need unit tests. (This follows the rule: do not test private methods.)
 
 1. Create a `Gameboard` class/factory
+   - A `Gameboard` instance will have the following properties:
+     - grid size: num of cells in x and y axis
+     - board data: array of 100 Cell instances
+     - ships: array of all ships placed in gameboard
    - Gameboards will be able to place ships at specific coordinates by calling the `Ship` class/factory
    - Gameboards will have a `receiveAttack` function that takes in a pair of coordinates, determines whether or not the attack hit a ship, and then either sends the `hit()` function to the appropriate ship or records the coordinates of the missed shot
    - Gameboards will keep track of missed attacks so they can display them properly
    - Gameboards will be able to report whether or not all of their ships have been sunk
+   - _Consider_: I have not yet created any user interface. I should know my code is coming together by running the tests. I should not be relying on `console.log` or DOM methods to make sure my code is doing what I expect it to.
 
 1. Create a `Player` class/factory
    - Players take turns playing the game by attacking the enemy Gameboard
-   - The game is played against the computer, so make the 'computer' player capable or making random plays. The AI doesn't have to be smart, but it should know whether a given move is legal (i.e. it shouldn't shoot the same coordinate twice)
+   - The game is played against the computer, so make the 'computer' player capable of making random plays. The AI doesn't have to be smart, but it should know whether a given move is legal (i.e. it shouldn't shoot the same coordinate twice)
 
 1. Create the main game loop and a module for DOM interaction
    - Begin crafting user interface
