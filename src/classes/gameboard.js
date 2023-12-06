@@ -17,24 +17,18 @@ export default class Gameboard {
     return boardData;
   }
 
-  // return calculated index based on given coordinates and grid size
-  getIndex(coords) {
-    return coords[0] * this.gridSize + coords[1];
-  }
-
   // build new Ship of given length (via dependency injection)
-  // and place at appropriate index in boardData based on provided x, y coords
-  placeShip(Ship, coords, length) {
-    const startIndex = this.getIndex(coords);
+  // and place at appropriate index in boardData based on provided location
+  placeShip(Ship, loc, length) {
     const ship = new Ship(length);
     this.ships.push(ship);
     // do this length times: place new Ship instance at cell
-    for (let i = 0; i < length; i++) this.boardData[startIndex + i].ship = ship;
+    for (let i = 0; i < length; i++) this.boardData[loc + i].ship = ship;
   }
 
-  // marks cell at given coords as hit; if ship, increments ship hits
-  receiveAttack(coords) {
-    const cell = this.boardData[this.getIndex(coords)];
+  // marks cell at given location as hit; if ship, increments ship hits
+  receiveAttack(loc) {
+    const cell = this.boardData[loc];
     // if cell has not yet been hit:
     if (!cell.hit) {
       if (cell.ship) cell.ship.hit(); // if cell has ship, increment ship hits

@@ -6,24 +6,23 @@ export default class Player {
     this.name = name;
   }
 
-  // cause given gameboard at given coordinates to receive attack
-  static attack(gameboard, coords) {
-    gameboard.receiveAttack(coords);
+  // cause given gameboard at given location to receive attack
+  static attack(gameboard, loc) {
+    gameboard.receiveAttack(loc);
   }
 
-  // generate random valid coordinates and cause given gameboard to receive attack
+  // generate random valid location and cause given gameboard to receive attack
   static randomAttack(gameboard) {
-    let x;
-    let y;
-
-    // continue to generate random ints for x, y until coords are valid
-    // (coords are defined and Gameboard Cell at coords has not already been hit)
+    // continue to generate random int for loc until it's valid
+    // (Gameboard Cell at loc has not already been hit)
+    let loc;
     do {
-      x = Player.#getRandInt(gameboard.gridSize);
-      y = Player.#getRandInt(gameboard.gridSize);
-    } while (gameboard.boardData[gameboard.getIndex([x, y])].hit);
+      loc = Player.#getRandInt(gameboard.gridSize ** 2);
+    } while (gameboard.boardData[loc].hit);
 
-    Player.attack(gameboard, [x, y]); // cause gameboard to receive attack
+    Player.attack(gameboard, loc); // cause gameboard to receive attack
+
+    return loc;
   }
 
   static #getRandInt(max, min = 0) {
