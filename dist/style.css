@@ -1,0 +1,170 @@
+/* general */
+
+:root {
+  /* gray */
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+  /* sky blue */
+  --sky-300: #7dd3fc;
+  --sky-600: #0284c7;
+  --sky-800: #075985;
+  --sky-900: #0c4a6e;
+  /* blue */
+  --blue-400: #60a5fa;
+  --blue-800: #1e40af;
+  --blue-950: #172554;
+  --blue-975: #0e1734;
+  /* error */
+  --red: #ef4444;
+  /* spacing */
+  --gap-025: 0.1rem;
+  --gap-050: 0.2rem;
+  --gap-100: 0.4rem;
+  --gap-150: 0.6rem;
+  --gap-200: 0.8rem;
+  --gap-250: 1.0rem;
+  --gap-300: 1.2rem;
+  --gap-400: 1.6rem;
+  --gap-500: 2.0rem;
+  --gap-600: 2.4rem;
+  --gap-700: 2.8rem;
+  --gap-800: 3.2rem;
+  /* other variables */
+  --shadow-2: 0 0 5px rgba(0,0,0,0.2);
+  --shadow-3: 0 0 5px rgba(0,0,0,0.3);
+  --transition-fast: all .1s ease-in-out;
+  --transition-slow: all .4s ease-in-out;
+  --font-stack: 'Helvetica', 'Arial', sans-serif;
+  /* color: white; */
+  font-family: var(--font-stack);
+  line-height: 1.25;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  transition: var(--transition-fast);
+}
+
+html, body {
+  min-height: 100vh;
+}
+
+header, main {
+  margin: auto;
+  padding-left: var(--gap-600);
+  padding-right: var(--gap-600);
+}
+
+header {
+  display: grid;
+  justify-items: center;
+  gap: var(--gap-150) var(--gap-800);
+  padding-top: var(--gap-400);
+  padding-bottom: var(--gap-400);
+}
+
+main {
+  display: grid;
+  justify-items: center;
+  gap: var(--gap-200);
+}
+
+
+/* gameboards */
+
+.gameboard {
+  display: grid;
+  gap: var(--gap-025);
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  margin-bottom: var(--gap-500);
+  width: 26rem;
+  height: 26rem;
+}
+
+.cell {
+  border: 1px solid black;
+  display: grid;
+  place-content: center;
+}
+
+.ai .cell:hover {
+  background-color: lightseagreen;
+  cursor: crosshair;
+}
+
+.ai .hit:hover,
+.ai .miss:hover {
+  background-color: lightcoral;
+  cursor: not-allowed;
+}
+
+.user .ship {
+  background-color: lightblue;
+  border: 2px solid blue;
+}
+
+.miss > div,
+.hit > div {
+  border-radius: 16px;
+  width: var(--gap-200);
+  height: var(--gap-200);
+}
+
+.miss > div {
+  background-color: black;
+}
+
+.hit > div {
+  background-color: red;
+}
+
+
+/* setup */
+
+.setup {
+  background-color: white;
+  display: grid;
+  place-content: center;
+  padding: var(--gap-600);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.setup > form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-600);
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* game over banner */
+
+.game-over {
+  background-color: white;
+  box-shadow:
+    0 0 0 100vh rgba(0,0,0,0.3),
+    0 0 min(15px, 3.5vw) rgba(0,0,0,0.7);
+  padding: var(--gap-700);
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: grid;
+  gap: var(--gap-300);
+  place-items: center;
+}
+
+.game-over.hidden {
+  display: none;
+}
