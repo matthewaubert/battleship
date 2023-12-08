@@ -67,8 +67,8 @@ export default class Game {
     if (this.activePlayer.gameboard.allShipsSunk()) {
       dom.ai.gameboardDisplay.removeEventListener('click', startRound);
       this.activePlayer.name === this.player1.name
-        ? renderGameOver(this.player2)
-        : renderGameOver(this.player1);
+        ? renderGameOver('YOU LOSE :(')
+        : renderGameOver('YOU WIN!');
 
       return true;
     }
