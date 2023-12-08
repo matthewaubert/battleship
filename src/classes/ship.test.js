@@ -1,10 +1,13 @@
 import Ship from './ship.js';
 
-// before each test, create a new Ship instance with length of 2
+// before each test, create a new Ship instance
+const name = 'battleship';
 const length = 4;
+const orientation = 'horizontal';
+
 let ship;
 beforeEach(() => {
-  ship = new Ship(length);
+  ship = new Ship(name, length, orientation);
 });
 
 test('returns a new Ship instance', () => {

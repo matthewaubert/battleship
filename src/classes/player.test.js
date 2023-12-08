@@ -8,7 +8,6 @@ beforeEach(() => {
 });
 
 describe('player creation', () => {  
-  // before each test, create new Player instance
   test('creates a new Player instance', () => {
     expect(player instanceof Player).toBeTruthy();
   });

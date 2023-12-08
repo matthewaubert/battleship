@@ -19,8 +19,8 @@ function initGame() {
   // render grids
   renderGrids(game);
   // place fleets
-  Game.placeFleet(Ship, game.player1);
-  Game.placeFleet(Ship, game.player2);
+  game.player1.gameboard.placeFleet(Ship);
+  game.player2.gameboard.placeFleet(Ship);
   // render user fleet
   renderFleet(game.player1);
 

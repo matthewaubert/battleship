@@ -7,25 +7,6 @@ export default class Game {
     this.activePlayer = this.player1;
   }
 
-  static shipTypes = {
-    // carrier: 5,
-    // battleship: 4,
-    // destroyer: 3,
-    // submarine: 3,
-    patrolBoat: 2,
-  };
-
-  // static locs = [0, 20, 40, 60, 80];
-  static locs = [0];
-
-  // place 5 Ships on each Player's Gameboard with predetermined coords
-  // input: Ship class, player to add ships to
-  static placeFleet(Ship, player) {
-    Object.keys(Game.shipTypes).forEach((key, i) => {
-      player.gameboard.placeShip(Ship, Game.locs[i], Game.shipTypes[key]);
-    });
-  }
-
   // add click event listener to AI gameboard display, starting the game
   // input: Player class, cached DOM, render functions
   startGame(Player, dom, renderAttack, renderGameOver) {

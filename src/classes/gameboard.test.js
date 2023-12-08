@@ -6,52 +6,90 @@ let gameboard;
 beforeEach(() => {
   gameboard = new Gameboard();
 });
+const loc = 23;
+const name = 'battleship';
+const length = 4;
 
 test('returns a new Gameboard instance', () => {
   expect(gameboard instanceof Gameboard).toBeTruthy();
 });
 
-describe('places ship', () => {
+describe('places ship horizontally', () => {
   // before each test, place ship of given length at given loc
-  const loc = 23
-  const length = 4;
   beforeEach(() => {
-    gameboard.placeShip(Ship, loc, length);
+    gameboard.placeShip(Ship, loc, name, length, 'horizontal');
   });
 
   test('cell before ship loc does not contain ship', () => {
-    expect(
-      gameboard.boardData[loc - 1].ship instanceof Ship,
-    ).toBeFalsy();
+    expect(gameboard.boardData[loc - 1].ship instanceof Ship).toBeFalsy();
   });
 
   test('cell at ship loc contains ship', () => {
-    expect(
-      gameboard.boardData[loc].ship instanceof Ship,
-    ).toBeTruthy();
+    expect(gameboard.boardData[loc].ship instanceof Ship).toBeTruthy();
   });
 
   test('cell before end of ship length contains ship', () => {
     expect(
-      gameboard.boardData[loc + (length - 1)]
+      gameboard.boardData[loc + (length - 1)].ship instanceof Ship,
+    ).toBeTruthy();
+  });
+
+  test('cell at end of ship length does not contain ship', () => {
+    expect(gameboard.boardData[loc + length].ship instanceof Ship).toBeFalsy();
+  });
+});
+
+describe('places ship vertically', () => {
+  // before each test, place ship of given length at given loc
+  beforeEach(() => {
+    gameboard.placeShip(Ship, loc, name, length, 'vertical');
+  });
+
+  test('cell before ship loc does not contain ship', () => {
+    expect(
+      gameboard.boardData[loc - gameboard.gridSize].ship instanceof Ship,
+    ).toBeFalsy();
+  });
+
+  test('cell at ship loc contains ship', () => {
+    expect(gameboard.boardData[loc].ship instanceof Ship).toBeTruthy();
+  });
+
+  test('cell before end of ship length contains ship', () => {
+    expect(
+      gameboard.boardData[loc + gameboard.gridSize * (length - 1)]
         .ship instanceof Ship,
     ).toBeTruthy();
   });
 
   test('cell at end of ship length does not contain ship', () => {
     expect(
-      gameboard.boardData[loc + length].ship instanceof
+      gameboard.boardData[loc + gameboard.gridSize * length].ship instanceof
         Ship,
     ).toBeFalsy();
   });
 });
 
+describe('places fleet', () => {
+  beforeEach(() => {
+    gameboard.placeFleet(Ship);
+  });
+
+  test('places 5 Ships', () => {
+    expect(gameboard.ships.length).toBe(5);
+  });
+
+  test('17 Cells have Ships', () => {
+    expect(
+      gameboard.boardData.filter((cell) => cell.ship !== null).length,
+    ).toBe(17);
+  });
+});
+
 describe('receives attack', () => {
   // before each test, place ship of given length at given loc
-  const loc = 23
-  const length = 4;
   beforeEach(() => {
-    gameboard.placeShip(Ship, loc, length);
+    gameboard.placeShip(Ship, loc, name, length, 'horizontal');
   });
 
   test('does not receive attack if invalid loc given', () => {
