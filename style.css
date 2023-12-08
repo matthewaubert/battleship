@@ -104,30 +104,34 @@ main {
   cursor: not-allowed;
 }
 
-.user .ship {
+.ship {
   background-color: lightblue;
   border: 2px solid blue;
+  z-index: 1;
+  /* height: 100%; */
 }
 
-.miss > div,
-.hit > div {
+.miss::after,
+.hit::after {
+  content: "";
   border-radius: 16px;
   width: var(--gap-200);
   height: var(--gap-200);
+  z-index: 2;
 }
 
-.miss > div {
+.miss::after {
   background-color: black;
 }
 
-.hit > div {
+.hit::after {
   background-color: red;
 }
 
 
 /* setup */
 
-.setup {
+/* .setup {
   background-color: white;
   display: grid;
   place-content: center;
@@ -145,7 +149,7 @@ main {
   gap: var(--gap-600);
   justify-content: center;
   align-items: center;
-}
+} */
 
 
 /* game over banner */
