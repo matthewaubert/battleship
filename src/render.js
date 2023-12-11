@@ -1,24 +1,8 @@
 import dom from './dom.js';
 import { kebabize } from './helpers.js';
 
-// render initial setup screen
-function renderSetup(game) {
-  renderGrid(game.player1, dom.setup.gameboardDisplay, 'invalid');
-}
-
-// hide initial setup screen
-function hideSetup() {
-  dom.setup.display.classList.add('hidden');
-}
-
-// render ai, user 10x10 grids of cells
-function renderGrids(game) {
-  renderGrid(game.player2, dom.ai.gameboardDisplay);
-  renderGrid(game.player1, dom.user.gameboardDisplay);
-}
-
 // for given Player, render 10x10 grid of cells on given gameboard display
-function renderGrid(player, gameboardDisplay) {
+function renderGrid(player, elName) {
   // for each Cell in Player Gameboard
   player.gameboard.boardData.forEach((cell, i) => {
     // create a new div with 'cell' class and data-index
@@ -29,8 +13,13 @@ function renderGrid(player, gameboardDisplay) {
     div.style.gridColumn = (i % player.gameboard.gridSize) + 1;
 
     // add div to appropriate gameboard display
-    gameboardDisplay.appendChild(div);
+    dom[elName].gameboardDisplay.appendChild(div);
   });
+}
+
+// hide initial setup screen
+function hideSetup() {
+  dom.setup.display.classList.add('hidden');
 }
 
 // render all given Player's Ships to user gameboard display
@@ -99,9 +88,8 @@ function renderGameOver(msg) {
 }
 
 export {
-  renderSetup,
+  renderGrid,
   hideSetup,
-  renderGrids,
   renderFleet,
   renderShip,
   renderAttack,

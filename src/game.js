@@ -1,4 +1,5 @@
-import { renderShip } from './render.js';
+import dom from './dom.js'
+import { renderShip, renderAttack, renderGameOver } from './render.js';
 
 // create Game instance
 // input: Player class, Gameboard class, player names
@@ -10,8 +11,8 @@ export default class Game {
   }
 
   // add click event listener to AI gameboard display, starting the game
-  // input: Player class, cached DOM, render functions
-  startGame(Player, dom, renderAttack, renderGameOver) {
+  // input: Player class
+  startGame(Player) {
     const startRound = (e) => {
       if (
         this.activePlayer.name === this.player1.name &&
@@ -22,9 +23,9 @@ export default class Game {
         console.log('attack!');
         // let each player take turn
         // if one player's ships have all been sunk, end game
-        this.userTurn(Player, e.target, renderAttack);
+        this.userTurn(Player, e.target);
         if (this.checkGameOver(renderGameOver, startRound, dom)) return;
-        this.aiTurn(Player, dom, renderAttack);
+        this.aiTurn(Player);
         this.checkGameOver(renderGameOver, startRound, dom);
       }
     };
@@ -34,8 +35,8 @@ export default class Game {
   }
 
   // attack AI gameboard, render attack
-  // input: Player class, clicked cell, render func
-  userTurn(Player, target, renderAttack) {
+  // input: Player class, clicked cell
+  userTurn(Player, target) {
     // user attack enemy gameboard at target index
     Player.attack(this.player2.gameboard, target.dataset.index);
 
@@ -49,8 +50,8 @@ export default class Game {
   }
 
   // attack user gameboard at random index after 1 second, render attack
-  // input: Player class, cached DOM, render func
-  aiTurn(Player, dom, renderAttack) {
+  // input: Player class
+  aiTurn(Player) {
     setTimeout(() => {
       const loc = Player.randomAttack(this.player1.gameboard);
       renderAttack(
@@ -64,9 +65,9 @@ export default class Game {
 
   // check whether attacked player's ships have all been sunk
   // if so, remove event listener from AI gameboard and render game over
-  // input: render func, startRound func, cached DOM
+  // input: startRound func
   // output: boolean val (whether game is over)
-  checkGameOver(renderGameOver, startRound, dom) {
+  checkGameOver(startRound) {
     if (this.activePlayer.gameboard.allShipsSunk()) {
       dom.ai.gameboardDisplay.removeEventListener('click', startRound);
       this.activePlayer.name === this.player1.name
