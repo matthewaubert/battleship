@@ -1,3 +1,12 @@
+/* nfl dolphins typeface */
+@font-face {
+  font-family: 'NFL Dolphins';
+  src: url('fonts/nfl-dolphins.woff2') format('woff2'),
+       url('fonts/nfl-dolphins.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* general */
 
 :root {
@@ -8,13 +17,28 @@
   --gray-800: #1f2937;
   --gray-900: #111827;
   /* sky blue */
+  --sky-050: #eff6ff;
+  --sky-100: #dbeafe;
+  --sky-200: #bfdbfe;
   --sky-300: #7dd3fc;
+  --sky-400: #38bdf8;
+  --sky-500: #0ea5e9;
   --sky-600: #0284c7;
+  --sky-700: #0369a1;
   --sky-800: #075985;
   --sky-900: #0c4a6e;
+  --sky-950: #082f49;
+  --sky-975: #041926;
   /* blue */
+  --blue-100: #dbeafe;
+  --blue-200: #bfdbfe;
+  --blue-300: #93c5fd;
   --blue-400: #60a5fa;
+  --blue-500: #3b82f6;
+  --blue-600: #2563eb;
+  --blue-700: #1d4ed8;
   --blue-800: #1e40af;
+  --blue-900: #1e3a8a;
   --blue-950: #172554;
   --blue-975: #0e1734;
   /* error */
@@ -38,8 +62,8 @@
   --transition-fast: all .1s ease-in-out;
   --transition-med: all .4s ease-in-out;
   --transition-slow: all 1s ease-in-out;
-  --font-stack: 'Helvetica', 'Arial', sans-serif;
   /* color: white; */
+  --font-stack: 'Bebas Neue', 'Helvetica', 'Arial', sans-serif;
   font-family: var(--font-stack);
   line-height: 1.25;
 }
@@ -55,6 +79,18 @@ html, body {
   min-height: 100vh;
 }
 
+h1 {
+  font-size: 3rem;
+  background-color: var(--sky-975);
+  /* background-image: radial-gradient(ellipse at bottom, var(--sky-500), var(--sky-975)); */
+  background-image: linear-gradient(var(--sky-975) 15%, var(--sky-500));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+}
+
 header, main {
   margin: auto;
   padding-left: var(--gap-600);
@@ -67,6 +103,7 @@ header {
   gap: var(--gap-150) var(--gap-800);
   padding-top: var(--gap-400);
   padding-bottom: var(--gap-400);
+  font-family: 'NFL Dolphins', var(--font-stack);
 }
 
 main {
@@ -159,9 +196,7 @@ main.clear,
 /* setup */
 
 .setup {
-  background-color: white;
   padding: var(--gap-700);
-  position: absolute;
   width: 100%;
   display: grid;
   grid-template-columns: 1fr;
