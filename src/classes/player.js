@@ -1,4 +1,4 @@
-import getRandInt from './helpers.js';
+import { getRandInt } from '../helpers.js';
 
 // create new Player instance
 // with 2 static methods to attack Gameboard

@@ -1,4 +1,4 @@
-import getRandInt from './helpers.js';
+import { getRandInt } from '../helpers.js';
 
 // create a new Ship instance
 // input: name, length (num of cells), orientation (horizontal/vertical)

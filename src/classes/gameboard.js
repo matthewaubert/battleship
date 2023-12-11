@@ -1,5 +1,5 @@
 import Cell from './cell.js';
-import getRandInt from './helpers.js';
+import { getRandInt } from '../helpers.js';
 
 // create new Gameboard instance
 export default class Gameboard {
@@ -25,13 +25,13 @@ export default class Gameboard {
 
     // do this length times: place new Ship instance at cell
     for (let i = 0; i < length; i++) {
-      const loc = startingLoc + this.#getDeltas()[ship.orientation] * i;
+      const loc = startingLoc + this.getDeltas()[ship.orientation] * i;
       this.boardData[loc].ship = ship;
     }
   }
 
   // return deltas for Ship placement in both orientations
-  #getDeltas() {
+  getDeltas() {
     return {
       horizontal: 1,
       vertical: this.gridSize,
@@ -63,24 +63,24 @@ export default class Gameboard {
   // input: Ship class
   placeFleet(Ship) {
     const shipData = {
-      carrier: { length: 5 },
-      battleship: { length: 4 },
-      destroyer: { length: 3 },
-      submarine: { length: 3 },
-      patrolBoat: { length: 2 },
+      carrier: { name: 'carrier', length: 5 },
+      battleship: { name: 'battleship', length: 4 },
+      destroyer: { name: 'destroyer', length: 3 },
+      submarine: { name: 'submarine', length: 3 },
+      patrolBoat: { name: 'patrol boat', length: 2 },
     };
 
     // for each ship: get random orientation and location, place Ship
-    Object.keys(shipData).forEach((name) => {
-      shipData[name].orientation = Ship.getRandOrientation();
-      shipData[name].loc = this.#getRandLoc(shipData[name]);
+    Object.keys(shipData).forEach((key) => {
+      shipData[key].orientation = Ship.getRandOrientation();
+      shipData[key].loc = this.#getRandLoc(shipData[key]);
 
       this.placeShip(
         Ship,
-        shipData[name].loc,
-        name,
-        shipData[name].length,
-        shipData[name].orientation,
+        shipData[key].loc,
+        shipData[key].name,
+        shipData[key].length,
+        shipData[key].orientation,
       );
     });
   }
@@ -96,8 +96,8 @@ export default class Gameboard {
     do {
       startingLoc = getRandInt(0, this.gridSize ** 2);
     } while (
-      !this.#isValidLoc(startingLoc, shipData) ||
-      this.#shipExists(startingLoc, shipData)
+      !this.isValidLoc(startingLoc, shipData) ||
+      this.shipExists(startingLoc, shipData)
     );
 
     return startingLoc;
@@ -105,7 +105,7 @@ export default class Gameboard {
 
   // return boolean value whether given starting location
   // is valid given ship data (orientation and length)
-  #isValidLoc(startingLoc, shipData) {
+  isValidLoc(startingLoc, shipData) {
     const conditions = {
       horizontal:
         startingLoc % this.gridSize <
@@ -121,9 +121,9 @@ export default class Gameboard {
   // check if Ship already exists at Cells where a new Ship would go
   // input: starting location and ship data (length and orientation)
   // output: boolean value
-  #shipExists(startingLoc, shipData) {
+  shipExists(startingLoc, shipData) {
     for (let i = 0; i < shipData.length; i++) {
-      const loc = startingLoc + this.#getDeltas()[shipData.orientation] * i;
+      const loc = startingLoc + this.getDeltas()[shipData.orientation] * i;
       // if Ship exists at given location, return true
       if (this.boardData[loc].ship !== null) return true;
     }

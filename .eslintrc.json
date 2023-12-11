@@ -25,6 +25,7 @@
     "rules": {
         "consistent-return": "off",
         "import/extensions": ["error", "always"],
+        "no-await-in-loop": "off",
         "no-console": "off",
         "no-else-return": ["error", {
             "allowElseIf": true
@@ -33,6 +34,7 @@
             "props": false
         }],
         "no-plusplus": "off",
+        "no-restricted-syntax": ["error", "ForOfStatement", "LabeledStatement", "WithStatement"],
         "no-unused-expressions": ["error", {
             "allowTernary": true
         }],

@@ -1,4 +1,15 @@
 import dom from './dom.js';
+import { kebabize } from './helpers.js';
+
+// render initial setup screen
+function renderSetup(game) {
+  renderGrid(game.player1, dom.setup.gameboardDisplay, 'invalid');
+}
+
+// hide initial setup screen
+function hideSetup() {
+  dom.setup.display.classList.add('hidden');
+}
 
 // render ai, user 10x10 grids of cells
 function renderGrids(game) {
@@ -10,7 +21,7 @@ function renderGrids(game) {
 function renderGrid(player, gameboardDisplay) {
   // for each Cell in Player Gameboard
   player.gameboard.boardData.forEach((cell, i) => {
-    // create a new div with 'Cell' class and data-index
+    // create a new div with 'cell' class and data-index
     const div = document.createElement('div');
     div.classList.add('cell');
     div.dataset.index = i;
@@ -25,12 +36,12 @@ function renderGrid(player, gameboardDisplay) {
 // render all given Player's Ships to user gameboard display
 function renderFleet(player) {
   player.gameboard.ships.forEach((ship) => {
-    renderShip(ship, player.gameboard);
+    renderShip(ship, player.gameboard, 'user');
   });
 }
 
 // render given Ship to user gameboard display
-function renderShip(ship, gameboard) {
+function renderShip(ship, gameboard, elName) {
   // find index of first Cell that contains Ship
   let startIndex;
   for (let i = 0, n = gameboard.boardData.length; i < n; i++) {
@@ -42,7 +53,7 @@ function renderShip(ship, gameboard) {
   }
 
   // create ship element and append to gameboard display
-  dom.user.gameboardDisplay.append(createShipElem(ship, startIndex));
+  dom[elName].gameboardDisplay.append(createShipElem(ship, startIndex));
 }
 
 // create ship HTML element
@@ -52,6 +63,9 @@ function createShipElem(ship, startIndex) {
   // create ship element
   const shipElem = document.createElement('div');
   shipElem.classList.add('ship');
+  shipElem.id = kebabize(ship.name);
+  shipElem.draggable = true;
+
   // calc grid-area of ship element
   switch (ship.orientation) {
     case 'horizontal':
@@ -62,8 +76,7 @@ function createShipElem(ship, startIndex) {
       break;
     default:
       shipElem.style.gridRowStart = Math.floor(startIndex / 10) + 1;
-      shipElem.style.gridRowEnd =
-        Math.floor(startIndex / 10) + ship.length + 1;
+      shipElem.style.gridRowEnd = Math.floor(startIndex / 10) + ship.length + 1;
       shipElem.style.gridColumnStart = (startIndex % 10) + 1;
       shipElem.style.gridColumnEnd = (startIndex % 10) + 2;
   }
@@ -85,4 +98,12 @@ function renderGameOver(msg) {
   dom.gameOver.banner.classList.remove('hidden');
 }
 
-export { renderGrids, renderFleet, renderAttack, renderGameOver };
+export {
+  renderSetup,
+  hideSetup,
+  renderGrids,
+  renderFleet,
+  renderShip,
+  renderAttack,
+  renderGameOver,
+};
