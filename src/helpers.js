@@ -9,4 +9,11 @@ function kebabize(string) {
   return string.toLowerCase().replace(' ', '-');
 }
 
-export { getRandInt, kebabize };
+// return Promise that resolves in given milliseconds
+function wait(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
+export { getRandInt, kebabize, wait };

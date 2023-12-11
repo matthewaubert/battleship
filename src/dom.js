@@ -1,4 +1,5 @@
 const dom = {
+  main: document.querySelector('main'),
   ai: {
     gameboardDisplay: document.querySelector('.ai.gameboard'),
   },

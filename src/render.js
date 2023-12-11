@@ -1,5 +1,5 @@
 import dom from './dom.js';
-import { kebabize } from './helpers.js';
+import { kebabize, wait } from './helpers.js';
 
 // for given Player, render 10x10 grid of cells on given gameboard display
 function renderGrid(player, elName) {
@@ -18,8 +18,17 @@ function renderGrid(player, elName) {
 }
 
 // hide initial setup screen
-function hideSetup() {
+async function hideSetup() {
+  const ms = 1000;
+
+  dom.setup.display.classList.add('clear');
+
+  await wait(ms);
   dom.setup.display.classList.add('hidden');
+  dom.main.classList.remove('hidden');
+
+  await wait(ms);
+  dom.main.classList.remove('clear');
 }
 
 // render all given Player's Ships to user gameboard display
@@ -82,9 +91,11 @@ function renderAttack(target, cell) {
 }
 
 // show game over banner
-function renderGameOver(msg) {
+async function renderGameOver(msg) {
   dom.gameOver.winner.innerText = msg;
   dom.gameOver.banner.classList.remove('hidden');
+  await wait(0);
+  dom.gameOver.banner.classList.remove('clear');
 }
 
 export {
