@@ -1,3 +1,5 @@
+import { renderShip } from './render.js';
+
 // create Game instance
 // input: Player class, Gameboard class, player names
 export default class Game {
@@ -36,16 +38,17 @@ export default class Game {
   userTurn(Player, target, renderAttack) {
     // user attack enemy gameboard at target index
     Player.attack(this.player2.gameboard, target.dataset.index);
-    // render attack
-    renderAttack(
-      target,
-      this.player2.gameboard.boardData[target.dataset.index],
-    );
+
+    const cell = this.player2.gameboard.boardData[target.dataset.index];
+    renderAttack(target, cell);
+    // if ship at loc is sunk, render ship to ai gameboard display
+    if (cell.ship && cell.ship.isSunk())
+      renderShip(cell.ship, this.player2.gameboard, 'ai');
 
     this.activePlayer = this.player2;
   }
 
-  // AI attack enemy at random index after 2 seconds
+  // attack user gameboard at random index after 1 second, render attack
   // input: Player class, cached DOM, render func
   aiTurn(Player, dom, renderAttack) {
     setTimeout(() => {
@@ -56,7 +59,7 @@ export default class Game {
       );
 
       this.activePlayer = this.player1;
-    }, 2000);
+    }, 1000);
   }
 
   // check whether attacked player's ships have all been sunk

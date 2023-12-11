@@ -108,6 +108,10 @@ main {
   cursor: not-allowed;
 }
 
+.ai .ship:hover {
+  cursor: not-allowed;
+}
+
 .ship {
   background-color: lightblue;
   border: 2px solid blue;
