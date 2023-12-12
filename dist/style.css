@@ -1,4 +1,5 @@
 /* nfl dolphins typeface */
+
 @font-face {
   font-family: 'NFL Dolphins';
   src: url('fonts/nfl-dolphins.woff2') format('woff2'),
@@ -58,8 +59,6 @@
   --gap-700: 2.8rem;
   --gap-800: 3.2rem;
   /* other variables */
-  --shadow-2: 0 0 5px rgba(0,0,0,0.2);
-  --shadow-3: 0 0 5px rgba(0,0,0,0.3);
   --transition-fast: all .1s ease-in-out;
   --transition-med: all .4s ease-in-out;
   --transition-slow: all 1s ease-in-out;
@@ -96,12 +95,12 @@ button {
   letter-spacing: 1px;
   background-color: var(--sky-700);
   border: none;
-  border-radius: 6px;
+  border-radius: 5px;
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.5) inset,
-    0 0 min(4px, 30vw) rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: var(--gap-150);
+    0 1px 0 rgba(255,255,255,0.5) inset,
+    0 0 4px rgba(0,0,0,0.8);
+  color: var(--sky-100);
+  padding: var(--gap-200);
   width: 100%;
 }
 
@@ -112,13 +111,17 @@ button:hover {
 
 button:active {
   box-shadow:
-    0 1px 0 rgba(0, 0, 0, 0.7) inset,
-    0 0 min(2px, 15vw) rgba(0,0,0,0.8) inset;
+    0 1px 0 rgba(0,0,0,0.7) inset,
+    0 0 2px rgba(0,0,0,0.8) inset;
   filter: brightness(0.9);
 }
 
+h1, h2 {
+  /* font-size: 3.4rem; */
+  font-size: calc(3.2rem + 0.7vw);
+}
+
 h1 {
-  font-size: 3.4rem;
   background-color: var(--sky-400);
   /* background-image: radial-gradient(ellipse at bottom, var(--sky-500), var(--sky-975)); */
   /* background-image: linear-gradient(var(--sky-975) 15%, var(--sky-500)); */
@@ -130,20 +133,25 @@ h1 {
   -moz-background-clip: text;
   -moz-text-fill-color: transparent;
   filter:
-    drop-shadow(0 1px 0 rgba(0, 0, 0, 0.5))
+    drop-shadow(0 1px 0 rgba(0,0,0,0.5))
     drop-shadow(0px 6px 8px rgba(0,0,0,0.5));
 }
 
-h2 {
-  font-size: 2.2rem;
+h2, h3 {
   letter-spacing: 1px;
-  filter: drop-shadow(0 2px 0 rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 2px 0 rgba(0,0,0,0.5));
+}
+
+h3 {
+  /* font-size: 2.2rem; */
+  font-size: calc(2rem + 0.5vw);
 }
 
 header, main, .setup {
   margin: auto;
-  padding-left: var(--gap-700);
-  padding-right: var(--gap-700);
+  max-width: 500px;
+  padding-left: var(--gap-800);
+  padding-right: var(--gap-800);
   display: grid;
   justify-items: center;
 }
@@ -157,6 +165,7 @@ header {
 
 main {
   gap: var(--gap-200);
+  padding-bottom: var(--gap-400);
 }
 
 main,
@@ -178,7 +187,6 @@ main.clear,
   opacity: 0;
 }
 
-
 /* gameboards */
 
 .gameboard {
@@ -186,17 +194,16 @@ main.clear,
   gap: var(--gap-050);
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
-  margin-bottom: var(--gap-500);
+  margin-bottom: var(--gap-400);
   width: 100%;
   aspect-ratio: 1 / 1;
 }
 
 .cell {
   /* border: 1px solid var(--sky-200); */
-  border-radius: 6px;
-  box-shadow: 0 0 min(15px, 3.5vw) rgba(0,0,0,1) inset;
+  border-radius: 5px;
+  box-shadow: 0 0 min(12px, 2.8vw) rgba(0,0,0,1) inset;
   display: grid;
-  place-content: center;
 }
 
 .over {
@@ -223,7 +230,7 @@ main.clear,
 .ship {
   background-color: var(--gray-500);
   border: 3px solid white;
-  border-radius: 8px;
+  border-radius: 5px;
   box-shadow: 0 0 min(5px, 1vw) rgba(0,0,0,0.5) inset;
   z-index: 1;
 }
@@ -231,9 +238,10 @@ main.clear,
 .miss::after,
 .hit::after {
   content: "";
+  place-self: center;
   border-radius: 16px;
-  width: var(--gap-200);
-  height: var(--gap-200);
+  width: 35%;
+  height: 35%;
   z-index: 2;
 }
 
@@ -244,7 +252,6 @@ main.clear,
 .hit::after {
   background-color: var(--red-600);
 }
-
 
 /* setup */
 
@@ -267,7 +274,6 @@ main.clear,
   cursor: pointer;
 }
 
-
 /* game over banner */
 
 .game-over {
@@ -276,7 +282,7 @@ main.clear,
   box-shadow:
     0 0 0 100vh rgba(0,0,0,0.3),
     0 0 min(15px, 3.5vw) rgba(0,0,0,0.7);
-  padding: var(--gap-700);
+  padding: var(--gap-800);
   position: fixed;
   top: 50%;
   transform: translateY(-50%);
@@ -285,4 +291,40 @@ main.clear,
   gap: var(--gap-300);
   place-items: center;
   z-index: 3;
+}
+
+.play-again {
+  max-width: 300px;
+}
+
+/* desktop media query */
+
+@media only screen and (min-width: 800px) {
+
+  header, main {
+    max-width: 1050px;
+  }
+  
+  main {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    column-gap: var(--gap-800);
+  }
+
+  main .user {
+    grid-column: 1 / 2;
+  }
+
+  main .ai {
+    grid-column: 2 / 3;
+  }
+
+  main .name {
+    grid-row: 1 / 2;
+  }
+
+  main .gameboard {
+    grid-row: 2 / 3;
+  }
+
 }
