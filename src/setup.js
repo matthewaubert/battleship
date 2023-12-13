@@ -66,7 +66,7 @@ function showShipPlace(e) {
 
     // if user hovered on valid gameboard cell:
     if (
-      gameboard.isValidLoc(startingLoc, shipData[key]) &&
+      gameboard.isValidStartingLoc(startingLoc, shipData[key]) &&
       !gameboard.shipExists(startingLoc, shipData[key])
     ) {
       // show example ship placement
@@ -89,7 +89,7 @@ function hideShipPlace(e) {
 
     // if user mouse left valid gameboard cell:
     if (
-      gameboard.isValidLoc(startingLoc, shipData[key]) &&
+      gameboard.isValidStartingLoc(startingLoc, shipData[key]) &&
       !gameboard.shipExists(startingLoc, shipData[key])
     ) {
       // clear example ship placement
@@ -125,7 +125,7 @@ function resolveContinue(e) {
   if (
     waitForClickResolve &&
     e.target.classList.contains('cell') &&
-    gameboard.isValidLoc(startingLoc, shipData[key]) &&
+    gameboard.isValidStartingLoc(startingLoc, shipData[key]) &&
     !gameboard.shipExists(startingLoc, shipData[key])
   ) {
     // place and render ship

@@ -96,7 +96,7 @@ export default class Gameboard {
     do {
       startingLoc = getRandInt(0, this.gridSize ** 2);
     } while (
-      !this.isValidLoc(startingLoc, shipData) ||
+      !this.isValidStartingLoc(startingLoc, shipData) ||
       this.shipExists(startingLoc, shipData)
     );
 
@@ -105,7 +105,7 @@ export default class Gameboard {
 
   // return boolean value whether given starting location
   // is valid given ship data (orientation and length)
-  isValidLoc(startingLoc, shipData) {
+  isValidStartingLoc(startingLoc, shipData) {
     const conditions = {
       horizontal:
         startingLoc % this.gridSize <
@@ -130,5 +130,29 @@ export default class Gameboard {
 
     // if no Ships exist at any reviewed locations, return false
     return false;
+  }
+
+  isValidNextLoc(startingLoc, nextLoc) {
+    const directions = {
+      right: nextLoc % this.gridSize > startingLoc % this.gridSize,
+      left: nextLoc % this.gridSize < startingLoc % this.gridSize,
+      up: nextLoc < this.gridSize ** 2,
+      down: nextLoc > 0,
+    };
+
+    return directions[this.getDeltaDirection(startingLoc, nextLoc)];
+  }
+
+  getDeltaDirection(startingLoc, nextLoc) {
+    switch(nextLoc) {
+      case startingLoc + 1:
+        return 'right';
+      case startingLoc - 1:
+        return 'left';
+      case startingLoc + this.gridSize:
+        return 'up';
+      default:
+        return 'down';
+    }
   }
 }

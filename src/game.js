@@ -4,16 +4,18 @@ import { renderShip, renderAttack, renderGameOver } from './render.js';
 // create Game instance
 // input: Player class, Gameboard class, player names
 export default class Game {
-  constructor(Player, Gameboard, name1 = 'Player', name2 = 'Enemy') {
+  constructor(Player, Ai, Gameboard, name1 = 'Player', name2 = 'Enemy') {
     this.player1 = new Player(Gameboard, name1);
-    this.player2 = new Player(Gameboard, name2);
+    this.player2 = new Ai(Gameboard, name2);
     this.activePlayer = this.player1;
   }
 
   // add click event listener to AI gameboard display, starting the game
   // input: Player class
-  startGame(Player) {
+  startGame() {
     const startRound = (e) => {
+      // if user is active player, target is a cell,
+      // and target hasn't already been attacked
       if (
         this.activePlayer.name === this.player1.name &&
         e.target.classList.contains('cell') &&
@@ -23,9 +25,9 @@ export default class Game {
         console.log('attack!');
         // let each player take turn
         // if one player's ships have all been sunk, end game
-        this.userTurn(Player, e.target);
+        this.userTurn(e.target);
         if (this.checkGameOver(renderGameOver, startRound, dom)) return;
-        this.aiTurn(Player);
+        this.aiTurn();
         this.checkGameOver(renderGameOver, startRound, dom);
       }
     };
@@ -36,9 +38,9 @@ export default class Game {
 
   // attack AI gameboard, render attack
   // input: Player class, clicked cell
-  userTurn(Player, target) {
+  userTurn(target) {
     // user attack enemy gameboard at target index
-    Player.attack(this.player2.gameboard, target.dataset.index);
+    this.player1.attack(this.player2.gameboard, target.dataset.index);
 
     const cell = this.player2.gameboard.boardData[target.dataset.index];
     renderAttack(target, cell);
@@ -51,9 +53,9 @@ export default class Game {
 
   // attack user gameboard at random index after 1 second, render attack
   // input: Player class
-  aiTurn(Player) {
+  aiTurn() {
     setTimeout(() => {
-      const loc = Player.randomAttack(this.player1.gameboard);
+      const loc = this.player2.aiAttack(this.player1.gameboard);
       renderAttack(
         dom.user.gameboardDisplay.children[loc],
         this.player1.gameboard.boardData[loc],

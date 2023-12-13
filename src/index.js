@@ -1,4 +1,5 @@
 import Player from './classes/player.js';
+import Ai from './classes/ai.js';
 import Gameboard from './classes/gameboard.js';
 import Ship from './classes/ship.js';
 import Game from './game.js';
@@ -10,7 +11,7 @@ document.addEventListener('DOMContentLoaded', initGame);
 // game loop
 async function initGame() {
   // create user and AI Players, each with a Gameboard
-  const game = new Game(Player, Gameboard);
+  const game = new Game(Player, Ai, Gameboard);
 
   // init setup
   renderGrid(game.player1, 'setup');
@@ -25,5 +26,5 @@ async function initGame() {
   // render user fleet
   renderFleet(game.player1);
 
-  game.startGame(Player);
+  game.startGame();
 }
