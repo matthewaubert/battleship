@@ -10,7 +10,6 @@ const dom = {
     display: document.querySelector('.setup'),
     instruct: document.querySelector('.setup > .instruct'),
     rotate: document.querySelector('.setup > .rotate'),
-    continue: document.querySelector('.setup > .continue'),
     gameboardDisplay: document.querySelector('.setup > .gameboard'),
   },
   gameOver: {

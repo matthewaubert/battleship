@@ -20,7 +20,6 @@ export default class Game {
         !e.target.classList.contains('hit') &&
         !e.target.classList.contains('miss')
       ) {
-        console.log('attack!');
         // let each player take turn
         // if one player's ships have all been sunk, end game
         this.userTurn(Player, e.target);

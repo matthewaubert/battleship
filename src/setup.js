@@ -25,7 +25,6 @@ export default async function initSetup(ShipClass, gameboardInstance) {
   for (const currKey in shipData) {
     if (Object.hasOwn(shipData, currKey)) {
       key = currKey;
-      console.log(shipData[key].name);
       // render ship name in setup.instruct
       dom.setup.instruct.innerText =
         `place your ${shipData[key].name}`.toUpperCase();
@@ -50,7 +49,6 @@ export default async function initSetup(ShipClass, gameboardInstance) {
   }
 
   dom.setup.gameboardDisplay.removeEventListener('click', resolveContinue);
-  console.log('finished setup');
 }
 
 // change orientation of current ship

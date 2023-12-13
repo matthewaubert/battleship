@@ -20,7 +20,6 @@ describe('player creation', () => {
 describe('attacking', () => {
   test('Player can attack enemy Gameboard', () => {
     const loc = 23;
-    // const index = player.gameboard.getIndex(loc);
     Player.attack(player.gameboard, loc);
     expect(player.gameboard.boardData[loc].hit).toBeTruthy();
   });
