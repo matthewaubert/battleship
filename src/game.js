@@ -1,4 +1,5 @@
-import dom from './dom.js'
+import dom from './dom.js';
+import { wait } from './helpers.js';
 import { renderShip, renderAttack, renderGameOver } from './render.js';
 
 // create Game instance
@@ -13,7 +14,7 @@ export default class Game {
   // add click event listener to AI gameboard display, starting the game
   // input: Player class
   startGame(Player) {
-    const startRound = (e) => {
+    const startRound = async (e) => {
       if (
         this.activePlayer.name === this.player1.name &&
         e.target.classList.contains('cell') &&
@@ -23,9 +24,10 @@ export default class Game {
         // let each player take turn
         // if one player's ships have all been sunk, end game
         this.userTurn(Player, e.target);
-        if (this.checkGameOver(renderGameOver, startRound, dom)) return;
+        if (this.checkGameOver(startRound)) return;
+        await wait(750); // wait 750 ms to simulate AI making a decision
         this.aiTurn(Player);
-        this.checkGameOver(renderGameOver, startRound, dom);
+        this.checkGameOver(startRound);
       }
     };
 
@@ -51,15 +53,13 @@ export default class Game {
   // attack user gameboard at random index after 1 second, render attack
   // input: Player class
   aiTurn(Player) {
-    setTimeout(() => {
-      const loc = Player.randomAttack(this.player1.gameboard);
-      renderAttack(
-        dom.user.gameboardDisplay.children[loc],
-        this.player1.gameboard.boardData[loc],
-      );
+    const loc = Player.randomAttack(this.player1.gameboard);
+    renderAttack(
+      dom.user.gameboardDisplay.children[loc],
+      this.player1.gameboard.boardData[loc],
+    );
 
-      this.activePlayer = this.player1;
-    }, 1000);
+    this.activePlayer = this.player1;
   }
 
   // check whether attacked player's ships have all been sunk
@@ -70,7 +70,7 @@ export default class Game {
     if (this.activePlayer.gameboard.allShipsSunk()) {
       dom.ai.gameboardDisplay.removeEventListener('click', startRound);
       this.activePlayer.name === this.player1.name
-        ? renderGameOver('YOU LOSE :(')
+        ? renderGameOver('YOU LOSE')
         : renderGameOver('YOU WIN!');
 
       return true;
